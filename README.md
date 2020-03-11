@@ -1,1 +1,2 @@
 # custom-disassembler
+This custom disassembler is based on the one built in Practical Binary Analysis by Dennis Andriesse. The early stages of this disassembler will be built alongside the book, but my hope is I can continue to develop this tool beyond the book specifications. 
