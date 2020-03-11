@@ -7,7 +7,7 @@
 
 //define classes
 class Symbol;
-
+//nothing
 class Symbol {
     /*
     exposes only the function symbols for binaries 
