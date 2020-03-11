@@ -7,7 +7,8 @@
 
 //define classes
 class Symbol;
-//nothing
+class Section;
+
 class Symbol {
     /*
     exposes only the function symbols for binaries 
@@ -22,4 +23,28 @@ class Symbol {
         SymbolType type;
         std::string name;
         uint64_t addr;
+};
+
+class Section {
+    /*
+    simple wrapper around the main properties of a section
+    */
+    public:
+        enum SectionType {
+            SEC_TYPE_NONE = 0,
+            SEC_TYPE_CODE = 1,
+            SEC_TYPE_DATA = 2
+        };
+
+        Section() : binary(NULL), type(SEC_TYPE_NONE),
+                    vma(0), size(0), bytes(NULL) {}
+        
+        bool contains(uint64_t addr) { return (addr >= vma) && (addr-vma < size);}
+
+        Binary *binary;
+        std::string name;
+        SectionType type;
+        uint64_t vma; //starting address (the vma member)
+        uint64_t size;
+        uint8_t *bytes;
 };
