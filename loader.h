@@ -9,6 +9,9 @@
 class Symbol;
 
 class Symbol {
+    /*
+    exposes only the function symbols for binaries 
+    */
     public:
         enum SymbolType {
             SYM_TYPE_UKN = 0,
