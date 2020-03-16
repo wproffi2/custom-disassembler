@@ -1,4 +1,4 @@
-#include LOADER_H
+#ifndef LOADER_H
 #define LOADER_H
 
 #include <stdint.h>
@@ -8,6 +8,7 @@
 //define classes
 class Symbol;
 class Section;
+class Binary;
 
 class Symbol {
     /*
@@ -48,3 +49,38 @@ class Section {
         uint64_t size;
         uint8_t *bytes;
 };
+
+class Binary {
+    public:
+        enum BinaryType {
+            BIN_TYPE_AUTO = 0,
+            BIN_TYPE_ELF = 1,
+            BIN_TYPE_PE = 2,
+        };
+
+        enum BinaryArch {
+            ARCH_NONE = 0,
+            ARCH_X86 = 1
+        };
+
+        Binary() : type(BIN_TYPE_AUTO), arch(ARCH_NONE), bits(0), entry(0) {}
+
+        Section *get_text_section()
+            { for(auto &s : sections) if(s.name == ".text") return &s; return NULL;}
+
+        std::string filename;
+        BinaryType type;
+        std::string type_str;
+        BinaryArch arch;
+        std::string arch_str;
+        unsigned bits;
+        uint64_t entry;
+        std::vector<Section> sections;
+        std::vector<Symbol> symbols;
+};
+
+
+int load_binary(std::string &fname, Binary *bin, Binary::BinaryType type);
+void unload_binary(Binary *bin);
+
+#endif 
