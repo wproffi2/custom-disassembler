@@ -51,13 +51,18 @@ class Section {
 };
 
 class Binary {
+
+
     public:
+        //supports ELF and PE
+        //Use auto to automatically determine the binary type 
         enum BinaryType {
             BIN_TYPE_AUTO = 0,
             BIN_TYPE_ELF = 1,
             BIN_TYPE_PE = 2,
         };
 
+        //only supports x86 architecture at the moment 
         enum BinaryArch {
             ARCH_NONE = 0,
             ARCH_X86 = 1
@@ -68,15 +73,15 @@ class Binary {
         Section *get_text_section()
             { for(auto &s : sections) if(s.name == ".text") return &s; return NULL;}
 
-        std::string filename;
-        BinaryType type;
+        std::string filename; //binary filename  
+        BinaryType type;  
         std::string type_str;
         BinaryArch arch;
         std::string arch_str;
-        unsigned bits;
-        uint64_t entry;
-        std::vector<Section> sections;
-        std::vector<Symbol> symbols;
+        unsigned bits; //bit width 
+        uint64_t entry; //entry point address
+        std::vector<Section> sections; //sections
+        std::vector<Symbol> symbols; //symbols 
 };
 
 
